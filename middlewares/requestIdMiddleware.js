@@ -20,7 +20,7 @@ function requireHeadersMiddleware(req, res, next) {
         return res.status(400).send({ message: 'Cabecera request-id inválido o no proporcionado' });
     }
 
-    if (!contentType || contentType !== 'application/json') {
+    if (!contentType || (contentType !== 'application/json' && contentType !== 'application/json; charset=UTF-8')) {
         return res.status(400).send({ message: 'Cabecera Content-Type inválido o no proporcionado' });
     }
 
