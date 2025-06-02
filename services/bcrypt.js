@@ -1,8 +1,15 @@
 const crypto = require('crypto');
 
+if (!process.env.CRYPTO_KEY || !process.env.CRYPTO_IV) {
+    throw new Error('CRYPTO_KEY o CRYPTO_IV no están definidas en las variables de entorno');
+}
+
+const keyValue = process.env.CRYPTO_KEY;
+const ivValue = process.env.CRYPTO_IV;
+
 const algorithm = 'aes-256-cbc';
-const key = Buffer.from(process.env.CRYPTO_KEY, "hex"); // 32 bytes
-const iv = Buffer.from(process.env.CRYPTO_IV, "hex"); // 16 bytes para IV
+const key = Buffer.from(keyValue, "hex"); // 32 bytes
+const iv = Buffer.from(ivValue, "hex"); // 16 bytes para IV
 
 function encriptar(numero) {
     const cipher = crypto.createCipheriv(algorithm, key, iv);
